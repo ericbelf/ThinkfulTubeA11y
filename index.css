@@ -1,0 +1,14 @@
+*{
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+body {
+  padding-top: 50px;
+  text-align: center;
+}
+
+#button {
+  margin-top: 10px;
+}
