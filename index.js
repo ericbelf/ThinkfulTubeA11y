@@ -1,18 +1,20 @@
 const YOUTUBE_SEARCH_URL = 'https://www.googleapis.com/youtube/v3/search';
+const outputElem = $('.js-search-results');
 
 function getDataFromApi(searchTerm, callback) {
   const query = {
     key: 'AIzaSyBGbrDNLV912_uQ3onsbEpd32DI-H23JTU',
     q: `${searchTerm}`,
     part: 'snippet',
-    per_page: 5
-  }
+    maxResults: 5
+  };
   $.getJSON(YOUTUBE_SEARCH_URL, query, callback);
   console.log('getDataFromApi ran');
   
 }
 
 function renderResults(result) {
+  let i=0
   console.log('renderResults ran');
   return `
     <ul>
@@ -26,10 +28,19 @@ function renderResults(result) {
 }
 
 function displayYouTubeSearchData(data) {
-  console.log('displayYouTubeSearchData ran'); 
+  console.log('displayYouTubeSearchData ran');
+  outputElem
+    .prop('hidden', false)
   const results = data.items.map((item) => renderResults(item));
+  
+  
+  $('.js-results-length-parent').css('display', 'inline');
+  
+  $('.js-results-length').html(data.items.length);
+    
   $('.js-search-results').html(results);
 }
+
 
 function watchSubmit() {
   
@@ -42,6 +53,16 @@ function watchSubmit() {
     queryTarget.val("");
     getDataFromApi(query, displayYouTubeSearchData);
   });
+}
+
+function showErr(err) {
+  const errMsg = (
+    `<p>We couldn't find a video with that name!`
+  );
+    
+  outputElem
+    .prop('hidden', false)
+    .html(errMsg);
 }
 
 $(watchSubmit);
