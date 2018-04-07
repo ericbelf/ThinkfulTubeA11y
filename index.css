@@ -4,11 +4,25 @@
   margin-left: auto;
 }
 
+.js-results-length-parent {
+  display: none;
+}
+
+.js-results-length {
+  display: inline;
+
+}
+
 body {
   padding-top: 50px;
   text-align: center;
+  
 }
 
 #button {
   margin-top: 10px;
+}
+
+label {
+  display: none;
 }
